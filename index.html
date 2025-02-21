@@ -4,99 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau Dashboard Hub</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tableau/2.9.1/tableau.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-        .dashboard-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .tableau-viz {
-            width: 100%;
-            height: 700px;
-            margin: 20px 0;
-        }
-        .controls {
-            margin-bottom: 20px;
-        }
-        select {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-    </style>
-</head>
-<body>
-    <div class="dashboard-container">
-        <h1>Company Analytics Hub</h1>
-        
-        <div class="controls">
-            <select id="dashboardSelector" onchange="loadDashboard()">
-                <option value="sales">Sales Dashboard</option>
-                <option value="marketing">Marketing Dashboard</option>
-                <option value="operations">Operations Dashboard</option>
-            </select>
-        </div>
+    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 
-        <div id="vizContainer" class="tableau-viz"></div>
-    </div>
-
-    <script>
-        // Configuration object for your dashboards
-        const dashboardConfig = {
-            sales: {
-                url: 'https://prod-useast-a.online.tableau.com/t/cresa/views/MaxarValoProfessional/PortfolioOverview?:origin=card_share_link&:embed=n',
-                options: {
-                    hideTabs: true,
-                    hideToolbar: true
-                }
-            },
-            marketing: {
-                url: 'https://public.tableau.com/views/YourMarketingDashboard',
-                options: {
-                    hideTabs: true,
-                    hideToolbar: true
-                }
-            },
-            operations: {
-                url: 'https://public.tableau.com/views/YourOperationsDashboard',
-                options: {
-                    hideTabs: true,
-                    hideToolbar: true
-                }
-            }
-        };
-
-        let viz;
-
-        function initializeViz() {
-            loadDashboard();
-        }
-
-        function loadDashboard() {
-            const selectedDashboard = document.getElementById('dashboardSelector').value;
-            const containerDiv = document.getElementById('vizContainer');
-            
-            // Dispose of existing viz if it exists
-            if (viz) {
-                viz.dispose();
-            }
-
-            // Create the new viz
-            const config = dashboardConfig[selectedDashboard];
-            viz = new tableau.Viz(containerDiv, config.url, config.options);
-        }
-
-        // Initialize the first dashboard when the page loads
-        window.addEventListener('load', initializeViz);
-    </script>
-</body>
+    <tableau-viz id="tableauViz"       
+    src='https://prod-useast-a.online.tableau.com/t/cresa/views/MaxarValoProfessional/PortfolioOverview?:origin=card_share_link&:embed=n'>
+  </tableau-viz>
+  
 </html>
